@@ -1,9 +1,9 @@
 <template>
     <v-app>
         <v-navigation-drawer v-model="isDrawerOpen" app hide-overlay fixed color="primary" dark>
-            <v-sheet class="d-flex align-center pt-6 pb-8 hidden-sm flex-column secondary--text" color="orange lighten-4">
-                <img src="https://netkromsolution.com/wp-content/uploads/2019/03/cropped-Webp.net-resizeimage.png" width="65%">
-                <div class="text-subtitle-2 mt-8">SISTEM INFORMASI PENGGAJIAN</div>
+            <v-sheet class="d-flex align-center pt-6 pb-8 hidden-sm flex-column grey--text text--darken-2" color="orange lighten-4">
+                <img src="https://netkromsolution.com/wp-content/uploads/2019/03/cropped-Webp.net-resizeimage.png" width="65%" class="ml-n6">
+                <div class="text-caption mt-2">Sistem Informasi Penggajian</div>
             </v-sheet>
             <v-list nav dense rounded>
                 <v-list-group prepend-icon="mdi-file" no-action active-class="text--white orange">
