@@ -29,6 +29,7 @@
       "@types/node"
     ]
   },
+  "typeRoots": ["./node_modules/@types/"],
   "exclude": [
     "node_modules",
     ".nuxt",
