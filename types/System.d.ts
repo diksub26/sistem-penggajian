@@ -1,6 +1,8 @@
+
 declare namespace System {
     interface State {
-        title : String
+        title : String,
+        systemMessages : import("~/helper/utilities/ToastHelper").ToastMessage[]
     }
 
     interface ApiReponse<T> {

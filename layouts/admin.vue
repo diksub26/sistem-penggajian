@@ -53,14 +53,18 @@
                 </v-sheet>
             </v-container>
         </v-main>
+        <SnackbarHolder />
     </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import SystemStateHelper from '../helper/store/SystemState';
+import SnackbarHolder from '../components/global/SnackbarHolder.vue';
 
-@Component
+@Component({
+    components: { SnackbarHolder }
+})
 export default class AdminLayout extends Vue {
     get title () : string {
         return this.$store.getters[SystemStateHelper.getter.getTitle]
