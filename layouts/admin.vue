@@ -19,9 +19,9 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app elevation="0" color="white">
-            <v-app-bar-nav-icon @click="isDrawerOpen = !isDrawerOpen"/>
-            <v-toolbar-title class="primary--text"></v-toolbar-title>
+        <v-app-bar app color="orange lighten-4" elevation="0">
+            <v-app-bar-nav-icon @click="isDrawerOpen = !isDrawerOpen" class="grey--text text--darken-2"/>
+            <v-toolbar-title class="primary--text">{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-menu bottom origin="center center" transition="scale-transition" rounded="lg">
                 <template v-slot:activator="{ on, attrs }">
@@ -47,19 +47,35 @@
         </v-app-bar>
 
         <v-main>
-            <Nuxt />
+            <v-container fluid>
+                <v-sheet rounded="lg" class="pa-2 AppSheet" outlined>
+                    <Nuxt />
+                </v-sheet>
+            </v-container>
         </v-main>
     </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import SystemStateHelper from '../helper/store/SystemState';
 
 @Component
 export default class AdminLayout extends Vue {
+    get title () : string {
+        return this.$store.getters[SystemStateHelper.getter.getTitle]
+    }
+
     isDrawerOpen : boolean = true
     appMenus : any[] = [
         { URL : '/master/data/jabatan', name : "Master Jabatan" },
     ]
 }
 </script>
+
+<style lang="scss" scoped>
+.AppSheet {
+    height: 675px;
+    overflow: auto;
+}
+</style>
