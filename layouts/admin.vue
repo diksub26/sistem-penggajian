@@ -74,6 +74,7 @@ export default class AdminLayout extends Vue {
     appMenus : any[] = [
         { URL : '/master-data/jabatan', name : "Master Jabatan" },
         { URL : '/master-data/tunjangan', name : "Tunjangan Gaji" },
+        { URL : '/master-data/potongan', name : "Potongan Gaji" },
     ]
 }
 </script>
