@@ -13,13 +13,13 @@ export async function getbyUUID(uuid : string) : Promise<MasterData.EmployeePosi
     return data.data   
 }
 
-export async function post(payload : { name : string, salary: string}) : Promise<string> {
+export async function post(payload : { name : string, salary: number}) : Promise<string> {
     const { data } = await axios.post<System.ApiReponse<any>>(`${MS_EMPLOYEE_POSITION_ENDPOINT}`, payload)
 
     return data.message   
 }
 
-export async function put(uuid :string, payload : { name : string, salary: string}) : Promise<string> {
+export async function put(uuid :string, payload : { name : string, salary: number}) : Promise<string> {
     const { data } = await axios.put<System.ApiReponse<any>>(`${MS_EMPLOYEE_POSITION_ENDPOINT}/${uuid}`, payload)
 
     return data.message   
@@ -31,5 +31,5 @@ export async function destroy(uuid :string) : Promise<string> {
     return data.message   
 }
 
-const MasterEmployeePositionAPI = {  get, getbyUUID, post, destroy }
+const MasterEmployeePositionAPI = {  get, getbyUUID, post, destroy, put }
 export default MasterEmployeePositionAPI
