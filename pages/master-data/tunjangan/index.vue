@@ -12,7 +12,7 @@
                 <v-icon small class="mr-2" @click="onClickEditBtn(item)" color="green">mdi-pencil</v-icon>
                 <v-icon small @click="onClickDeleteBtn(item)" color="error">mdi-delete</v-icon>
             </template>
-            <template v-slot:[`item.salary`]="{ item }">{{ formatAmount(item.salary) }}</template>
+            <template v-slot:[`item.amount`]="{ item }">{{ formatAmount(item.amount) }}</template>
         </v-data-table>
         <v-dialog v-model="isFormDialogOpen" width="450px" persistent>
             <v-form ref="form" v-model="isFormDialogValid" lazy-validation @submit.prevent="onFormDialogSubmitted">
@@ -120,7 +120,7 @@ export default class MasterJabatanIndexPage extends Vue{
     }
 
     closeFormDialog (refreshData : boolean = false) :void {
-        if(refreshData) this.fetchMasterEmployePosition()
+        if(refreshData) this.fetchMasterAllowance()
         
         this.isFormDialogOpen = false
         this.selectedDataTableItem = {
@@ -136,7 +136,7 @@ export default class MasterJabatanIndexPage extends Vue{
         this.isFormDialogOpen = true
     }
 
-    async fetchMasterEmployePosition () : Promise<void> {
+    async fetchMasterAllowance () : Promise<void> {
         this.isLoading = true
         await MasterAllowanceAPI.get().then ( (data) => {
             this.masterAllowances = data
@@ -203,7 +203,7 @@ export default class MasterJabatanIndexPage extends Vue{
                 amount: 0
             }
             this.$notifier.showMessage({ content: resp, color: "success"})
-            this.fetchMasterEmployePosition()
+            this.fetchMasterAllowance()
         })
         .catch( (error : any) => {
             let _errMessage = error.message
@@ -218,7 +218,7 @@ export default class MasterJabatanIndexPage extends Vue{
     }
 
     mounted () {
-        this.fetchMasterEmployePosition()
+        this.fetchMasterAllowance()
     }
 }
 </script>
