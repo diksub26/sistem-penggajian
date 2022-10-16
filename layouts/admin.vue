@@ -10,8 +10,8 @@
                     <template v-slot:activator>
                         <v-list-item-title>Master Data</v-list-item-title>
                     </template>
-                    <v-list-item v-for="(appMenu, key) in appMenus" nuxt link :key="key">
-                        <v-list-item-content :to="appMenu.URL">
+                    <v-list-item v-for="(appMenu, key) in appMenus" nuxt link :key="key" :to="appMenu.URL" active-class="white--text orange">
+                        <v-list-item-content>
                             <v-list-item-title v-text="appMenu.name"></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
@@ -72,7 +72,8 @@ export default class AdminLayout extends Vue {
 
     isDrawerOpen : boolean = true
     appMenus : any[] = [
-        { URL : '/master/data/jabatan', name : "Master Jabatan" },
+        { URL : '/master-data/jabatan', name : "Master Jabatan" },
+        { URL : '/master-data/tunjangan', name : "Tunjangan Gaji" },
     ]
 }
 </script>
