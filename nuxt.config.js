@@ -20,14 +20,20 @@ export default {
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
+  // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    '@mdi/font/css/materialdesignicons.css',
+    './assets/page-transition.scss',
+    './styles/variables.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src:'~/plugins/axios-default-header.ts', ssr: false},
     { src:'~/plugins/notifier.ts', ssr: false},
+    { src:'~/plugins/vuex-persistedstate.ts', ssr: false},
+    { src:'~/plugins/cross-tab-logout.ts', ssr: false},
+    { src:'~/plugins/auth.ts', ssr: false},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

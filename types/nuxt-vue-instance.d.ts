@@ -3,7 +3,8 @@ import { ToastMessagePayload } from '~/helper/utilities/ToastHelper'
 
 interface CustomService {
   $auth: {
-    logout: () => Promise<void>
+    logout: () => Promise<void>,
+    doLogin: (payload  : {email :string, password: string}) => Promise<void>
   }
 
   $notifier: {

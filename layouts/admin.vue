@@ -6,6 +6,16 @@
                 <div class="text-caption mt-2">Sistem Informasi Penggajian</div>
             </v-sheet>
             <v-list nav dense rounded>
+                <v-list-item class="pa-0">
+                    <v-list-item nuxt link to="/" active-class="white--text orange">
+                        <v-list-item-icon>
+                            <v-icon v-text="'mdi-home'"></v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Home</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item>
                 <v-list-group prepend-icon="mdi-folder" no-action active-class="white--text orange">
                     <template v-slot:activator>
                         <v-list-item-title>Master Data</v-list-item-title>
@@ -30,18 +40,18 @@
                     </v-btn>
                 </template>
                 <v-list width="160px">
-                  <v-list-item nuxt link to="/user/profile">
-                    <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>Profil</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item @click="() => {}">
-                    <v-list-item-icon><v-icon>mdi-exit-to-app</v-icon></v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>Logout</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
+                    <v-list-item nuxt link to="/user/profile">
+                        <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Profil</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item @click="onClickLogout">
+                        <v-list-item-icon><v-icon>mdi-exit-to-app</v-icon></v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Logout</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list>
             </v-menu>
         </v-app-bar>
@@ -63,7 +73,8 @@ import SystemStateHelper from '../helper/store/SystemState';
 import SnackbarHolder from '../components/global/SnackbarHolder.vue';
 
 @Component({
-    components: { SnackbarHolder }
+    middleware: 'authenticated',
+    components: { SnackbarHolder },
 })
 export default class AdminLayout extends Vue {
     get title () : string {
@@ -76,6 +87,10 @@ export default class AdminLayout extends Vue {
         { URL : '/master-data/tunjangan', name : "Tunjangan Gaji" },
         { URL : '/master-data/potongan', name : "Potongan Gaji" },
     ]
+
+    async onClickLogout() : Promise<void> {
+        await this.$auth.logout()
+    }
 }
 </script>
 
