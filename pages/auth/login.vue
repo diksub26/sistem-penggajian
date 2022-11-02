@@ -100,13 +100,8 @@ $form-section-width: 480px;
         }
 
         .LoginField {
-            &:deep {
-                .error--text.v-messages {
-                    color: white !important;
-                }
-                .v-label {
-                  font-size: 0.8em;
-                }
+            :deep(.v-label) {
+                font-size: 1em;
             }
         }
     }
