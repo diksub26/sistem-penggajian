@@ -16,6 +16,16 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-item>
+                <v-list-item class="pa-0">
+                    <v-list-item nuxt link to="/employe" active-class="white--text orange">
+                        <v-list-item-icon>
+                            <v-icon v-text="'mdi-account'"></v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Data Karyawan</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item>
                 <v-list-group prepend-icon="mdi-folder" no-action active-class="white--text orange">
                     <template v-slot:activator>
                         <v-list-item-title>Master Data</v-list-item-title>
@@ -98,5 +108,9 @@ export default class AdminLayout extends Vue {
 .AppSheet {
     height: 675px;
     overflow: auto;
+    
+    .d-contents {
+        display: contents;
+    }
 }
 </style>
