@@ -6,66 +6,33 @@
                 <div class="text-caption mt-2">Sistem Informasi Penggajian</div>
             </v-sheet>
             <v-list nav dense rounded>
-                <v-list-item class="pa-0">
-                    <v-list-item nuxt link to="/" active-class="white--text orange">
-                        <v-list-item-icon>
-                            <v-icon v-text="'mdi-home'"></v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>Home</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-item>
-                <v-list-item class="pa-0">
-                    <v-list-item nuxt link to="/employe" active-class="white--text orange">
-                        <v-list-item-icon>
-                            <v-icon v-text="'mdi-account'"></v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>Data Karyawan</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-item>
-                <v-list-group prepend-icon="mdi-chart-box-plus-outline" no-action active-class="white--text orange">
-                    <template v-slot:activator>
-                        <v-list-item-title>Lembur</v-list-item-title>
+                <div class='d-contents' v-for="(menu, key) in appMenus" :key="key">
+                    <template v-if="!menu.isParent">
+                        <v-list-item class="px-0 my-1">
+                            <v-list-item nuxt link :to="menu.url" active-class="white--text orange">
+                                <v-list-item-icon>
+                                    <v-icon v-text="menu.icon"></v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{ menu.text }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item>
                     </template>
-                    <v-list-item nuxt link to="/overtime/submission" active-class="white--text orange">
-                        <v-list-item-content>
-                            <v-list-item-title v-text="'Pengajuan Lembur'"></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item nuxt link to="/overtime/manager" active-class="white--text orange">
-                        <v-list-item-content>
-                            <v-list-item-title v-text="'Lembur Karyawan'"></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-group>
-                <v-list-group prepend-icon="mdi-account-arrow-left" no-action active-class="white--text orange">
-                    <template v-slot:activator>
-                        <v-list-item-title>Cuti</v-list-item-title>
+                    <template v-else>
+                        <v-list-group :prepend-icon="menu.icon" no-action active-class="white--text orange">
+                            <template v-slot:activator>
+                                <v-list-item-title>{{ menu.text }}</v-list-item-title>
+                            </template>
+                            <v-list-item v-for="(childMenu, keyChild) in menu.children" :key="`${key}_${keyChild}`" nuxt link
+                                :to="childMenu.url" active-class="white--text orange">
+                                <v-list-item-content>
+                                    <v-list-item-title v-text="childMenu.text"></v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-group>
                     </template>
-                    <v-list-item nuxt link to="/leave/submission" active-class="white--text orange">
-                        <v-list-item-content>
-                            <v-list-item-title v-text="'Pengajuan Cuti'"></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item nuxt link to="/leave/manager" active-class="white--text orange">
-                        <v-list-item-content>
-                            <v-list-item-title v-text="'Cuti Karyawan'"></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-group>
-                <v-list-group prepend-icon="mdi-folder" no-action active-class="white--text orange">
-                    <template v-slot:activator>
-                        <v-list-item-title>Master Data</v-list-item-title>
-                    </template>
-                    <v-list-item v-for="(appMenu, key) in appMenus" nuxt link :key="key" :to="appMenu.URL" active-class="white--text orange">
-                        <v-list-item-content>
-                            <v-list-item-title v-text="appMenu.name"></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list-group>
+                </div>
             </v-list>
         </v-navigation-drawer>
 
@@ -111,6 +78,7 @@
 import { Component, Vue } from "vue-property-decorator"
 import SystemStateHelper from '../helper/store/SystemState';
 import SnackbarHolder from '~/components/global/SnackbarHolder.vue';
+import MenuProvider from "~/helper/utilities/MenuProvider";
 
 @Component({
     middleware: 'authenticated',
@@ -122,11 +90,11 @@ export default class AdminLayout extends Vue {
     }
 
     isDrawerOpen : boolean = true
-    appMenus : any[] = [
-        { URL : '/master-data/jabatan', name : "Master Jabatan" },
-        { URL : '/master-data/tunjangan', name : "Tunjangan Gaji" },
-        { URL : '/master-data/potongan', name : "Potongan Gaji" },
-    ]
+
+    get appMenus() : any[] {
+        const role = this.$store.getters[SystemStateHelper.getter.getAuthRole]
+        return MenuProvider(role)
+    }
 
     async onClickLogout() : Promise<void> {
         await this.$auth.logout()
@@ -139,8 +107,8 @@ export default class AdminLayout extends Vue {
     height: 675px;
     overflow: auto;
     
-    .d-contents {
-        display: contents;
-    }
+}
+.d-contents {
+    display: contents;
 }
 </style>
