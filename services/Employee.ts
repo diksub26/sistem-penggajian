@@ -35,5 +35,10 @@ export async function destroy(uuid :string) : Promise<string> {
     return data.message   
 }
 
-const EmployeeAPI = {  get, getbyUUID, post, destroy, put }
+export async function getManagers() : Promise<{ value: '', text: ''}[]> {
+    const { data } = await axios.get<System.ApiReponse<{ value: '', text: ''}[]>>(`${MS_EMPLOYEE_ENDPOINT}/manager`)
+    return data.data   
+}
+
+const EmployeeAPI = {  get, getbyUUID, post, destroy, put, getManagers }
 export default EmployeeAPI

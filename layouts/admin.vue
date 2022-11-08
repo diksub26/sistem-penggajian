@@ -26,6 +26,16 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-item>
+                <v-list-item class="pa-0">
+                    <v-list-item nuxt link to="/overtime" active-class="white--text orange">
+                        <v-list-item-icon>
+                            <v-icon v-text="'mdi-chart-box-plus-outline'"></v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Pengajuan Lembur</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-item>
                 <v-list-group prepend-icon="mdi-folder" no-action active-class="white--text orange">
                     <template v-slot:activator>
                         <v-list-item-title>Master Data</v-list-item-title>
