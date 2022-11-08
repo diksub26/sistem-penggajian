@@ -1,5 +1,5 @@
 <template>
-    <div style="d-contents">
+    <div class="d-contents">
         <v-data-table :headers="dataTableHeaders" :items="employees" height="100%" :loading="isLoading" :items-per-page="25" 
                 :footer-props="{ 'items-per-page-options': [25, 50, -1] }"
             >
