@@ -41,16 +41,21 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-group>
-                <v-list-item class="pa-0">
-                    <v-list-item nuxt link to="/leave" active-class="white--text orange">
-                        <v-list-item-icon>
-                            <v-icon v-text="'mdi-account-arrow-left'"></v-icon>
-                        </v-list-item-icon>
+                <v-list-group prepend-icon="mdi-account-arrow-left" no-action active-class="white--text orange">
+                    <template v-slot:activator>
+                        <v-list-item-title>Cuti</v-list-item-title>
+                    </template>
+                    <v-list-item nuxt link to="/leave/submission" active-class="white--text orange">
                         <v-list-item-content>
-                            <v-list-item-title>Pengajuan Cuti</v-list-item-title>
+                            <v-list-item-title v-text="'Pengajuan Cuti'"></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                </v-list-item>
+                    <v-list-item nuxt link to="/leave/manager" active-class="white--text orange">
+                        <v-list-item-content>
+                            <v-list-item-title v-text="'Cuti Karyawan'"></v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-group>
                 <v-list-group prepend-icon="mdi-folder" no-action active-class="white--text orange">
                     <template v-slot:activator>
                         <v-list-item-title>Master Data</v-list-item-title>
