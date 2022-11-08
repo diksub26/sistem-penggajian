@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const MS_SALARY_CUTS_ENDPOINT = `/master-data/salary-cuts`
 
-export async function get() : Promise<MasterData.Allowance[]> {
+export async function get() : Promise<MasterData.SalaryCut[]> {
     const { data } = await axios.get<System.ApiReponse<MasterData.SalaryCut[]>>(`${MS_SALARY_CUTS_ENDPOINT}`)
     return data.data   
 }

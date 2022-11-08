@@ -80,7 +80,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import SystemStateHelper from '../helper/store/SystemState';
-import SnackbarHolder from '../components/global/SnackbarHolder.vue';
+import SnackbarHolder from '~/components/global/SnackbarHolder.vue';
 
 @Component({
     middleware: 'authenticated',

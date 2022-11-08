@@ -10,7 +10,10 @@ declare namespace MasterData {
         amount : number
     }
 
-    interface SalaryCut extends MasterData.Allowance {
-        
+    interface SalaryCut {
+        id : string
+        name : string
+        amount : number
+        type: string   
     }
 }
