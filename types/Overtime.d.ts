@@ -4,8 +4,9 @@ interface Overtime {
     startTime?: string,
     endTime?: string,
     time?: string,
-    manager: string,
-    manageName?: string,
+    manager?: string,
+    employeeName?: string,
+    managerName?: string,
     project: string,
     description: string,
     status?: import('~/helper/enum/OvertimeStatus').default

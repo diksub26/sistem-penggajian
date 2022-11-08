@@ -26,16 +26,21 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-item>
-                <v-list-item class="pa-0">
-                    <v-list-item nuxt link to="/overtime" active-class="white--text orange">
-                        <v-list-item-icon>
-                            <v-icon v-text="'mdi-chart-box-plus-outline'"></v-icon>
-                        </v-list-item-icon>
+                <v-list-group prepend-icon="mdi-chart-box-plus-outline" no-action active-class="white--text orange">
+                    <template v-slot:activator>
+                        <v-list-item-title>Lembur</v-list-item-title>
+                    </template>
+                    <v-list-item nuxt link to="/overtime/submission" active-class="white--text orange">
                         <v-list-item-content>
-                            <v-list-item-title>Pengajuan Lembur</v-list-item-title>
+                            <v-list-item-title v-text="'Pengajuan Lembur'"></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                </v-list-item>
+                    <v-list-item nuxt link to="/overtime/manager" active-class="white--text orange">
+                        <v-list-item-content>
+                            <v-list-item-title v-text="'Lembur Karyawan'"></v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-group>
                 <v-list-item class="pa-0">
                     <v-list-item nuxt link to="/leave" active-class="white--text orange">
                         <v-list-item-icon>
