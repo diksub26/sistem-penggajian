@@ -17,7 +17,11 @@
         <v-dialog v-model="isFormDialogOpen" width="450px" persistent>
             <v-form ref="form" v-model="isFormDialogValid" lazy-validation @submit.prevent="onFormDialogSubmitted">
                 <v-card :loading="isFormDialogLoading" :disabled="isFormDialogLoading">
-                    <v-toolbar color="primary" dark dense>Form Master Potongan Gaji</v-toolbar>
+                    <v-toolbar color="primary" dark dense>
+                        Form Master Potongan Gaji
+                        <v-spacer />
+                        <v-icon size="30" @click="closeFormDialog()">mdi-close</v-icon>
+                    </v-toolbar>
                     <v-card-text class="pa-2 mt-2">
                         <v-container fluid class="pa-2">
                             <v-row>
@@ -27,20 +31,22 @@
                                 <v-col cols="12">
                                     <v-text-field label="Jumlah" type="number" dense v-model="selectedDataTableItem.amount" :rules="[inputFieldRequiredRules]"></v-text-field>
                                 </v-col>
+                                <v-col cols="12">
+                                    <v-select label="Type" type="number" dense v-model="selectedDataTableItem.type" :items="typeItems" :rules="[inputFieldRequiredRules]" />
+                                </v-col>
                             </v-row>
                         </v-container>
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn text color="error" class="text-none" @click="closeFormDialog()"><v-icon size="20">mdi-close</v-icon>&nbsp;Batal</v-btn>
+                    <v-card-actions class="pa-4">
                         <v-spacer></v-spacer>
-                        <v-btn dark depressed color="green" class="text-none" type="submit" :loading="isFormDialogLoading">
+                        <v-btn dark depressed color="green" class="text-none" type="submit" :loading="isFormDialogLoading" small>
                             <v-icon size="20">mdi-content-save</v-icon>&nbsp;Simpan{{ isCreateNewData ? '' : ' Perubahan'}}
                         </v-btn>
                     </v-card-actions>
                 </v-card>
             </v-form>
         </v-dialog>
-        <ConfirmationDialogComponent :confirmDialogCallback="deleteSalaryCut.bind()" v-model="isDeleteConfirmationOpen"/>
+        <ConfirmationDialogComponent :confirmDialogCallback="deleteSalaryCut" v-model="isDeleteConfirmationOpen"/>
     </div>
 </template>
 
@@ -64,7 +70,8 @@ export default class MasterJabatanIndexPage extends Vue{
     selectedDataTableItem : MasterData.SalaryCut = {
         id: '',
         name: '',
-        amount: 0
+        amount: 0,
+        type: ''
     }
     dataTableHeaders = [
         {
@@ -77,12 +84,21 @@ export default class MasterJabatanIndexPage extends Vue{
             width: '25%',
         },
         {
+            text: 'Type',
+            value: 'type',
+        },
+        {
             text: 'Aksi',
             value: 'actions',
             sortable: false,
             width: '100px'
         },
     ]
+    typeItems = [
+        { text: "Persentase", value: 'percentage'},
+        { text: "Nominal", value: 'amount'}
+    ]
+
     masterSalaryCuts : MasterData.SalaryCut[] = []
     isLoading: boolean = false
     isFormDialogOpen: boolean = false
@@ -126,7 +142,8 @@ export default class MasterJabatanIndexPage extends Vue{
         this.selectedDataTableItem = {
             id: '',
             name: '',
-            amount: 0
+            amount: 0,
+            type: ''
         }
         this.isCreateNewData = true
         this.$refs.form.resetValidation()
@@ -157,10 +174,10 @@ export default class MasterJabatanIndexPage extends Vue{
     }
 
     async updateSalaryCut () : Promise<void> {
-        const { id, name, amount} = this.selectedDataTableItem
+        const { id, name, amount, type} = this.selectedDataTableItem
         this.isFormDialogLoading = true
 
-        await MasterSalaryCutAPI.put(this.selectedDataTableItem.id, { name, amount })
+        await MasterSalaryCutAPI.put(this.selectedDataTableItem.id, { name, amount, type })
         .then( resp => {
             this.$notifier.showMessage({ content: resp, color: "success"})
             this.closeFormDialog(true)
@@ -175,10 +192,10 @@ export default class MasterJabatanIndexPage extends Vue{
     }
 
     async storeSalaryCut () : Promise<void> {
-        const { name, amount} = this.selectedDataTableItem
+        const { name, amount, type} = this.selectedDataTableItem
         this.isFormDialogLoading = true
 
-        await MasterSalaryCutAPI.post({ name, amount })
+        await MasterSalaryCutAPI.post({ name, amount, type })
         .then( resp => {
             this.$notifier.showMessage({ content: resp, color: "success"})
             this.closeFormDialog(true)
@@ -200,7 +217,8 @@ export default class MasterJabatanIndexPage extends Vue{
             this.selectedDataTableItem = {
                 id: '',
                 name: '',
-                amount: 0
+                amount: 0,
+                type: ''
             }
             this.$notifier.showMessage({ content: resp, color: "success"})
             this.fetchMasterSalaryCut()

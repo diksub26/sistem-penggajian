@@ -13,13 +13,13 @@ export async function getbyUUID(uuid : string) : Promise<MasterData.SalaryCut> {
     return data.data   
 }
 
-export async function post(payload : { name : string, amount: number}) : Promise<string> {
+export async function post(payload : { name : string, amount: number, type: string}) : Promise<string> {
     const { data } = await axios.post<System.ApiReponse<any>>(`${MS_SALARY_CUTS_ENDPOINT}`, payload)
 
     return data.message   
 }
 
-export async function put(uuid :string, payload : { name : string, amount: number}) : Promise<string> {
+export async function put(uuid :string, payload : { name : string, amount: number, type: string}) : Promise<string> {
     const { data } = await axios.put<System.ApiReponse<any>>(`${MS_SALARY_CUTS_ENDPOINT}/${uuid}`, payload)
 
     return data.message   
