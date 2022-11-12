@@ -25,6 +25,11 @@ export default function (role : 'admin' | 'manajer' | 'karyawan') {
                         // { text: 'Cuti Karyawan', url: '/overtime/manager'}
                     ]
                 },
+                { isParent: true, text: 'Gaji Karyawan', icon: 'mdi-file-document-check-outline', children : [
+                        { text: 'Kelola Gaji', url: '/salary/manage'},
+                        { text: 'Arsip Gaji', url: '/salary/archieve'},
+                    ]
+                },
                 { isParent: false, text: 'Data Karyawan', icon: 'mdi-account', url: '/employe'},
                 { isParent: true, text: 'Master Data', icon: 'mdi-folder', children : [
                         { text: 'Master Jabatan', url: '/master-data/jabatan'},
