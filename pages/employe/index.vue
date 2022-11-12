@@ -119,7 +119,7 @@
                                         <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ detailEmploye.employeePosition }}</div>
                                         <div class="text-caption mt-3">Tgl. Pengangkatan</div>
                                         <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ detailEmploye.assignmentDate }}</div>
-                                        <div class="text-caption mt-3">Gaji Fungsional</div>
+                                        <div class="text-caption mt-3">Gaji Pokok</div>
                                         <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ formatRupiah(detailEmploye.basicSalary) }}</div>
                                     </v-col>
                                 </v-row>
