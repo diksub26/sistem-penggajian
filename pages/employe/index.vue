@@ -46,6 +46,7 @@
                                 </v-col>
                                 <v-col cols="4" class="px-2">
                                     <v-text-field label="Gaji Pokok" type="number" v-model="selectedDataTableItem.basicSalary" :rules="[inputFieldRequiredRules]" />
+                                    <v-text-field label="No. Rekening" v-model="selectedDataTableItem.bankAccNo" :rules="[inputFieldRequiredRules]" />
                                     <v-text-field label="Tanggal Pengangkatan" type='date' v-model="selectedDataTableItem.assignmentDate" :rules="[inputFieldRequiredRules]" />
                                     <v-select label="Peran Aplikasi" v-model="selectedDataTableItem.role" :items="roleList" :rules="[inputFieldRequiredRules]"/>
                                     <v-textarea label='Alamat Lengkap' v-model="selectedDataTableItem.address" :rules="[inputFieldRequiredRules]" rows="3" />
@@ -121,6 +122,8 @@
                                         <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ detailEmploye.assignmentDate }}</div>
                                         <div class="text-caption mt-3">Gaji Pokok</div>
                                         <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ formatRupiah(detailEmploye.basicSalary) }}</div>
+                                        <div class="text-caption mt-3">No. Rekening</div>
+                                        <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ detailEmploye.bankAccNo }}</div>
                                     </v-col>
                                 </v-row>
                             </v-container>
@@ -326,6 +329,7 @@ export default class ManageEmployePage extends Vue {
         division: '',
         basicSalary: 0,
         employeePositionId: '',
+        bankAccNo: '',
     }
     detailEmploye : Employee.Data = {
         id: '',
@@ -344,6 +348,7 @@ export default class ManageEmployePage extends Vue {
         division: '',
         basicSalary: 0,
         employeePositionId: '',
+        bankAccNo: '',
     }
     employeePositions : MasterData.EmployeePosition[] = []
     dataTableHeaders = [
@@ -437,6 +442,7 @@ export default class ManageEmployePage extends Vue {
             division: '',
             basicSalary: 0,
             employeePositionId: '',
+            bankAccNo: '',
         }
     }
 

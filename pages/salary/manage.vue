@@ -79,6 +79,115 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="salaryInfoDialog.isOpen" max-width="900px" persistent>
+            <v-card :loading="salaryInfoDialog.isLoading" :disabled="salaryInfoDialog.isLoading" class="CardSalaryInfo">
+                <v-toolbar color="primary" dark dense elevation="0">
+                    Informasi Gaji Karyawan
+                    <v-spacer />
+                    <v-icon size="30" @click="closeSalaryInfoDialog()" title="Tutup">mdi-close</v-icon>
+                </v-toolbar>
+                <v-card-text class="pt-6">
+                    <div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Periode<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2" v-html="salaryInfoDialog.selectedAttendance.period"></div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Nama Karyawan<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.employeeName }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">No. Induk<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.noInduk }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Divisi<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.division }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Jabatan<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.employeePosition }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Tanggal Aktif<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.assignmentDate }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">No. Rekening<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2 font-weight-bold orange--text">{{ salaryInfoDialog.selectedAttendance.bankAccNo }}</div>
+                        </div>
+                        <div class="TextContent mt-6">
+                            <div class="text-display-1 orange--text">Jumlah Hari Kerja</div>
+                            <div class="text-subtitle-2 font-weight-bold orange--text">{{ salaryInfoDialog.selectedAttendance.dayOfWork }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Sakit<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.sick }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Izin<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.permitte }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Cuti<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.leave }}</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1">Terlambat<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ salaryInfoDialog.selectedAttendance.late }}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="TextContent mt-md-0 mt-6">
+                            <div class="text-display-1 orange--text">Penerimaan</div>
+                        </div>
+                        <div class="TextContent">
+                            <div class="text-display-1 orange--text">Gaji Pokok<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2 orange--text font-weight-bold">{{ formatRupiah(salaryInfoDialog.selectedAttendance.basicSalary) }}</div>
+                        </div>
+                        <div class="TextContent mt-6">
+                            <div class="text-display-1 orange--text">Tunjangan</div>
+                        </div>
+                        <div class="TextContent" v-for="(allowance, index) in salaryInfoDialog.selectedAttendance.allowances" :key="`${index}_allowance`">
+                            <div class="text-display-1">{{ allowance.name}}<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ formatRupiah(allowance.amount) }}</div>
+                        </div>
+                        <div class="TextContent mt-2 Box">
+                            <div class="text-display-1 orange--text">Total Penerimaan Kotor<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2 orange--text font-weight-bold">{{ formatRupiah(salaryInfoDialog.selectedAttendance.total )}}</div>
+                        </div>
+                        <div class="TextContent mt-6">
+                            <div class="text-display-1 orange--text">Potongan</div>
+                        </div>
+                        <div class="TextContent" v-for="(salaryCut, index) in salaryInfoDialog.selectedAttendance.salaryCuts" :key="`${index}_salaryCut`">
+                            <div class="text-display-1">{{ salaryCut.name}}<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">{{ formatRupiah(salaryCut.amount) }}</div>
+                        </div>
+                        <div class="TextContent mt-2 Box">
+                            <div class="text-display-1 orange--text">Total Potongan<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2 orange--text font-weight-bold">{{ formatRupiah(salaryInfoDialog.selectedAttendance.totalSalaryCut )}}</div>
+                        </div>
+                        <div class="TextContent mt-2 Box">
+                            <div class="text-display-1 orange--text">Take Home Pay<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2 orange--text font-weight-bold">{{ formatRupiah(salaryInfoDialog.selectedAttendance.salary )}}</div>
+                        </div>
+                        <div class="TextContent mt-2" v-if="salaryInfoDialog.selectedAttendance.status !== salaryStatus.Not_Transferred">
+                            <div class="text-display-1 orange--text">Status<div class="float-right">:&nbsp;</div></div>
+                            <div class="text-subtitle-2">
+                                <v-chip :color="getColorForStatus(salaryInfoDialog.selectedAttendance.status)" v-text="salaryInfoDialog.selectedAttendance.status" dark small></v-chip>
+                            </div>
+                        </div>
+                    </div>
+                </v-card-text>
+                <v-card-actions class="pa-4" v-if="salaryInfoDialog.selectedAttendance.status === salaryStatus.Not_Transferred">
+                    <v-spacer></v-spacer>
+                    <v-btn dark color="green" class="text-none" :loading="salaryInfoDialog.onMarkAsTransferred" depressed @click="markAsTransferred">
+                        <v-icon size="20">mdi-bank-transfer</v-icon>&nbsp;Tandai Sudah Transfer
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -89,6 +198,7 @@ import SystemStateHelper from '~/helper/store/SystemState';
 import AttendanceAPI from '~/services/AttendanceAPI';
 import { formatRupiah } from '~/helper/utilities/NumberFormatter'
 import SalaryStatus from '~/helper/enum/SalaryStatus';
+import SalaryAPI from '../../services/SalaryAPI';
 
 @Component({
     layout: "admin",
@@ -100,6 +210,9 @@ export default class ManageSalaryPage extends Vue {
     isLoading : boolean = true
     isBtnDownloadTemplateLoading : boolean = false
     dayOfWork : string | null = null
+    salaryStatus = {
+        Not_Transferred: SalaryStatus.Not_Transferred
+    }
 
     attendances : Attendance[] = []
     dataTableHeaders = [
@@ -139,6 +252,39 @@ export default class ManageSalaryPage extends Vue {
         },
         importStatus: '',
         error: [],
+    }
+
+    salaryInfoDialog : {
+        isOpen : boolean
+        isLoading : boolean
+        onMarkAsTransferred : boolean
+        selectedAttendance : SalaryWithAttendance
+    } = {
+        isOpen : false,
+        isLoading : false,
+        onMarkAsTransferred: false,
+        selectedAttendance : {
+            allowances: [],
+            assignmentDate: '',
+            bankAccNo: '',
+            basicSalary: 0,
+            dayOfWork: 0,
+            division: '',
+            employeeName: '',
+            employeePosition: '',
+            id: '',
+            late: 0,
+            leave: 0,
+            noInduk: '',
+            period: '',
+            permitte: 0,
+            salaryCuts: [],
+            sick: 0,
+            status: SalaryStatus.Not_Transferred,
+            total: 0,
+            salary: 0,
+            totalSalaryCut: 0
+        }
     }
 
     get getThisMonthString () :string {
@@ -215,8 +361,72 @@ export default class ManageSalaryPage extends Vue {
         .finally ( () => this.importAttendanceDialog.isLoading = false)
     }
 
-    onClickShowBtn (id: string) : void {
+    closeSalaryInfoDialog (isRefreshAttendance = false) :void {
+        if(isRefreshAttendance) {
+            this.fetchAttendance()
+            this.fetchSavedDayOfWork()
+        }
 
+        this.salaryInfoDialog.isOpen = false
+        this.salaryInfoDialog.selectedAttendance = {
+            allowances: [],
+            assignmentDate: '',
+            bankAccNo: '',
+            basicSalary: 0,
+            dayOfWork: 0,
+            division: '',
+            employeeName: '',
+            employeePosition: '',
+            id: '',
+            late: 0,
+            leave: 0,
+            noInduk: '',
+            period: '',
+            permitte: 0,
+            salaryCuts: [],
+            sick: 0,
+            status: SalaryStatus.Not_Transferred,
+            total: 0,
+            salary: 0,
+            totalSalaryCut: 0
+        }
+    }
+
+    onClickShowBtn (id: string) : void {
+        this.salaryInfoDialog.isLoading = true
+        this.salaryInfoDialog.isOpen = true
+        SalaryAPI.getByAttendance(id)
+        .then( data => {
+            this.salaryInfoDialog.selectedAttendance = data
+        })
+        .catch( (error : any) => {
+            let _errMessage = error.message
+            if(error instanceof AxiosError) _errMessage = (error.response?.data  as System.ApiReponse<any>).message
+            
+            this.$notifier.showMessage({ content: _errMessage, color: "error"})
+            this.salaryInfoDialog.isOpen = false
+        })
+        .finally ( () => this.salaryInfoDialog.isLoading = false)
+    }
+
+    markAsTransferred () : void {
+        this.salaryInfoDialog.isLoading = true
+        this.salaryInfoDialog.onMarkAsTransferred = true
+        SalaryAPI.markAsTransferred(this.salaryInfoDialog.selectedAttendance.id)
+        .then ( msg => {
+            this.closeSalaryInfoDialog(true)
+            this.$notifier.showMessage({ content: msg, color: "success"})
+        })
+        .catch( (error : any) => {
+            let _errMessage = error.message
+            if(error instanceof AxiosError) _errMessage = (error.response?.data  as System.ApiReponse<any>).message
+            
+            this.$notifier.showMessage({ content: _errMessage, color: "error"})
+        })
+        .finally ( () => {
+            this.salaryInfoDialog.isLoading = false
+            this.salaryInfoDialog.onMarkAsTransferred = false
+        })
     }
 
     onClickBtnDownloadTemplate () : void {
@@ -256,7 +466,7 @@ export default class ManageSalaryPage extends Vue {
         this.isLoading = true
         AttendanceAPI.getSavedDayOfWork()
         .then( data => {
-            this.dayOfWork = data.day_of_work
+            this.dayOfWork = data.dayOfWork
         })
         .catch( (error : any) => {
             let _errMessage = error.message
@@ -287,5 +497,27 @@ export default class ManageSalaryPage extends Vue {
 }
 :deep(.v-subheader) {
     height: 20px !important;
+}
+.CardSalaryInfo {
+    max-height: 650px;
+    :deep(.v-card__text) {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+
+        @media screen and (max-width: #{map-get($grid-breakpoints, 'md')}) {
+            grid-template-columns: 100%;
+        }
+
+        .TextContent{
+            display: grid;
+            grid-template-columns: 0.65fr 1fr;
+            line-height: 1.5rem;
+
+            &.Box {
+                padding: 4px;
+                border: 1px solid #f57c00;
+            }
+        }
+    }
 }
 </style>

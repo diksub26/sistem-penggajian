@@ -39,7 +39,7 @@ export async function importAttendance (payload : { dayOfWork : string, fileImpo
 }
 
 type GetSavedDayOfWorkResp = {
-    day_of_work : string
+    dayOfWork : string
 }
 export async function getSavedDayOfWork () : Promise<GetSavedDayOfWorkResp> {
     const { data } = await axios.get<System.ApiReponse<GetSavedDayOfWorkResp>>(`${ATTENDANCE_ENDPOINT}/saved-day-of-work`)
