@@ -45,7 +45,7 @@
                                     />
                                 </v-col>
                                 <v-col cols="4" class="px-2">
-                                    <v-text-field label="Gaji Fungsional" type="number" v-model="selectedDataTableItem.functionalSalary" :rules="[inputFieldRequiredRules]" />
+                                    <v-text-field label="Gaji Pokok" type="number" v-model="selectedDataTableItem.basicSalary" :rules="[inputFieldRequiredRules]" />
                                     <v-text-field label="Tanggal Pengangkatan" type='date' v-model="selectedDataTableItem.assignmentDate" :rules="[inputFieldRequiredRules]" />
                                     <v-select label="Peran Aplikasi" v-model="selectedDataTableItem.role" :items="roleList" :rules="[inputFieldRequiredRules]"/>
                                     <v-textarea label='Alamat Lengkap' v-model="selectedDataTableItem.address" :rules="[inputFieldRequiredRules]" rows="3" />
@@ -120,7 +120,7 @@
                                         <div class="text-caption mt-3">Tgl. Pengangkatan</div>
                                         <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ detailEmploye.assignmentDate }}</div>
                                         <div class="text-caption mt-3">Gaji Fungsional</div>
-                                        <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ formatRupiah(detailEmploye.functionalSalary) }}</div>
+                                        <div class="text-body-1 font-weight-medium grey--text text--darken-2">{{ formatRupiah(detailEmploye.basicSalary) }}</div>
                                     </v-col>
                                 </v-row>
                             </v-container>
@@ -324,7 +324,7 @@ export default class ManageEmployePage extends Vue {
         noHp: '',
         assignmentDate: '',
         division: '',
-        functionalSalary: 0,
+        basicSalary: 0,
         employeePositionId: '',
     }
     detailEmploye : Employee.Data = {
@@ -342,7 +342,7 @@ export default class ManageEmployePage extends Vue {
         noHp: '',
         assignmentDate: '',
         division: '',
-        functionalSalary: 0,
+        basicSalary: 0,
         employeePositionId: '',
     }
     employeePositions : MasterData.EmployeePosition[] = []
@@ -435,7 +435,7 @@ export default class ManageEmployePage extends Vue {
             noHp: '',
             assignmentDate: '',
             division: '',
-            functionalSalary: 0,
+            basicSalary: 0,
             employeePositionId: '',
         }
     }

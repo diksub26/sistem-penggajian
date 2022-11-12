@@ -17,7 +17,7 @@ declare namespace Employee {
         noHp : string
         assignmentDate: string
         division: string
-        functionalSalary: number
+        basicSalary: number
     }
 
     interface Data extends Basic{
