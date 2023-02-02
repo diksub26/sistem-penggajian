@@ -12,7 +12,7 @@
                 <v-icon small class="mr-2" @click="onClickEditBtn(item)" color="green">mdi-pencil</v-icon>
                 <v-icon small @click="onClickDeleteBtn(item)" color="error">mdi-delete</v-icon>
             </template>
-            <template v-slot:[`item.amount`]="{ item }">{{ formatAmount(item.amount) }}</template>
+            <template v-slot:[`item.amount`]="{ item }">{{ formatAmount(item.amount, item.type) }}</template>
         </v-data-table>
         <v-dialog v-model="isFormDialogOpen" width="450px" persistent>
             <v-form ref="form" v-model="isFormDialogValid" lazy-validation @submit.prevent="onFormDialogSubmitted">
@@ -82,10 +82,6 @@ export default class MasterJabatanIndexPage extends Vue{
             text: 'Jumlah',
             value: 'amount',
             width: '25%',
-        },
-        {
-            text: 'Type',
-            value: 'type',
         },
         {
             text: 'Aksi',
@@ -167,7 +163,9 @@ export default class MasterJabatanIndexPage extends Vue{
         .finally ( () => this.isLoading = false)
     }
 
-    formatAmount (amount : number) {
+    formatAmount (amount : number, type :string) {
+        if (type === "percentage") return `${amount}%`
+
         const formattedAmount = amount ? new Intl.NumberFormat('id-ID').format(amount) : 0
 
         return `Rp. ${formattedAmount}`
