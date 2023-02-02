@@ -13,5 +13,10 @@ export async function markAsTransferred(attendanceId : string) : Promise<string>
     return data.message
 }
 
-const SalaryAPI = { getByAttendance, markAsTransferred }
+export async function slip() : Promise<any>{
+    const { data } = await axios.get<System.ApiReponse<any>>(`${SALARY_ENDPOINT}/slip`)
+    return data.data
+}
+
+const SalaryAPI = { getByAttendance, markAsTransferred, slip }
 export default SalaryAPI

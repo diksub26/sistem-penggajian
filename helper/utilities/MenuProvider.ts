@@ -9,6 +9,7 @@ export default function (role : 'admin' | 'manajer' | 'karyawan') {
                 { text: 'Pengajuan Cuti', url: '/leave/submission'}
             ]
         },
+        { isParent: false, text: 'Slip Gaji', icon: 'mdi-file', url: '/salary/slip'},
     ]
 
     switch (role) {
@@ -25,12 +26,19 @@ export default function (role : 'admin' | 'manajer' | 'karyawan') {
                         // { text: 'Cuti Karyawan', url: '/overtime/manager'}
                     ]
                 },
+                { isParent: false, text: 'Slip Gaji', icon: 'mdi-file', url: '/salary/slip'},
                 { isParent: false, text: 'Gaji Karyawan', icon: 'mdi-file-document-check-outline', url: '/salary/manage'},
                 // { isParent: true, text: 'Gaji Karyawan', icon: 'mdi-file-document-check-outline', children : [
                 //         { text: 'Kelola Gaji', url: '/salary/manage'},
                 //         { text: 'Arsip Gaji', url: '/salary/archieve'},
                 //     ]
                 // },
+                { isParent: true, text: 'Laporan', icon: 'mdi-file', children : [
+                        { text: 'Laporan Gaji', url: '/report/salary-report'},
+                        // { text: 'Laporan Cuti', url: '/report/leave-report'},
+                        // { text: 'Laporan Lembur', url: '/report/overtime-report'}
+                    ]
+                },
                 { isParent: false, text: 'Data Karyawan', icon: 'mdi-account', url: '/employe'},
                 { isParent: true, text: 'Master Data', icon: 'mdi-folder', children : [
                         { text: 'Master Jabatan', url: '/master-data/jabatan'},
@@ -53,6 +61,7 @@ export default function (role : 'admin' | 'manajer' | 'karyawan') {
                         { text: 'Cuti Karyawan', url: '/leave/manager'}
                     ]
                 },
+                { isParent: false, text: 'Slip Gaji', icon: 'mdi-file', url: '/salary/slip'},
                 { isParent: true, text: 'Laporan', icon: 'mdi-file', children : [
                         { text: 'Laporan Gaji', url: '/report/salary-report'},
                         { text: 'Laporan Cuti', url: '/report/leave-report'},
