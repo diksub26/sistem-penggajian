@@ -19,6 +19,13 @@ interface CustomService {
   $gmapApiPromiseLazy : () => Promise<void>
 }
 
+interface HtmlToPaperOptions {
+  name: string;
+  specs: string[];
+  replace: boolean;
+  styles: string[];
+}
+
 declare module 'vue/types/vue' {
   interface Vue extends CustomService {
     beforeRouteEnter?(
@@ -38,6 +45,8 @@ declare module 'vue/types/vue' {
       from: Route,
       next: NavigationGuardNext<Vue>
     ): void
+
+    $htmlToPaper: (el: Element | String, localOptions?: Partial<HtmlToPaperOptions>, cb?: () => boolean) => void;
   }
 }
 

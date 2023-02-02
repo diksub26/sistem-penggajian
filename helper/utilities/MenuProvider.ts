@@ -27,7 +27,7 @@ export default function (role : 'admin' | 'manajer' | 'karyawan') {
                 },
                 { isParent: true, text: 'Gaji Karyawan', icon: 'mdi-file-document-check-outline', children : [
                         { text: 'Kelola Gaji', url: '/salary/manage'},
-                        { text: 'Arsip Gaji', url: '/salary/archieve'},
+                        // { text: 'Arsip Gaji', url: '/salary/archieve'},
                     ]
                 },
                 { isParent: false, text: 'Data Karyawan', icon: 'mdi-account', url: '/employe'},
@@ -49,7 +49,13 @@ export default function (role : 'admin' | 'manajer' | 'karyawan') {
                 },
                 { isParent: true, text: 'Cuti', icon: 'mdi-account-arrow-left', children : [
                         { text: 'Pengajuan Cuti', url: '/leave/submission'},
-                        { text: 'Cuti Karyawan', url: '/overtime/manager'}
+                        { text: 'Cuti Karyawan', url: '/leave/manager'}
+                    ]
+                },
+                { isParent: true, text: 'Laporan', icon: 'mdi-file', children : [
+                        { text: 'Laporan Gaji', url: '/report/salary-report'},
+                        { text: 'Laporan Cuti', url: '/report/leave-report'},
+                        { text: 'Laporan Lembur', url: '/report/overtime-report'}
                     ]
                 },
             ]
