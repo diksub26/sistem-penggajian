@@ -36,6 +36,7 @@
 <script lang="ts">
 import { AxiosError } from 'axios';
 import { Component, Vue } from 'vue-property-decorator'
+import SystemStateHelper from '~/helper/store/SystemState';
 import ReportAPI from '~/services/Report';
 
 @Component({
@@ -71,6 +72,10 @@ export default class OvertimeReportPage extends Vue {
         _now = _now.toISOString().split('T')[0]
         this.monthYear = _now.substring(0, _now.length - 3)
         this.fetchReportApi()
+    }
+
+    created () {
+        this.$store.commit(SystemStateHelper.mutation.updateTitle, "Laporan Lembur Karyawan")
     }
 
     onClickPrintBtn () {

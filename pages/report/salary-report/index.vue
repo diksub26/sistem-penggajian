@@ -37,6 +37,7 @@
 <script lang="ts">
 import { AxiosError } from 'axios';
 import { Component, Vue } from 'vue-property-decorator'
+import SystemStateHelper from '~/helper/store/SystemState';
 import ReportAPI from '~/services/Report';
 
 @Component({
@@ -66,6 +67,10 @@ export default class IndexSalaryReport extends Vue {
 
     mounted() :void {
         this.fetchReportApi()
+    }
+
+    created () {
+        this.$store.commit(SystemStateHelper.mutation.updateTitle, "Laporan Gaji Karyawan")
     }
 }
 </script>

@@ -132,6 +132,7 @@
 import { AxiosError } from 'axios';
 import { Component, Vue } from 'vue-property-decorator'
 import SalaryStatus from '~/helper/enum/SalaryStatus';
+import SystemStateHelper from '~/helper/store/SystemState';
 import { formatRupiah } from '~/helper/utilities/NumberFormatter';
 import SalaryAPI from '~/services/SalaryAPI';
 
@@ -236,9 +237,12 @@ export default class SalarySlipPage extends Vue {
         .finally ( () => this.salaryInfoDialog.isLoading = false)
     }
 
-
     mounted() :void {
         this.fetchReportApi()
+    }
+
+    created () {
+        this.$store.commit(SystemStateHelper.mutation.updateTitle, "Lihat Slip Gaji")
     }
 }
 </script>

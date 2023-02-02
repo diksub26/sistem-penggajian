@@ -1,8 +1,9 @@
 <template>
     <div class="d-contents">
         <v-card class="mb-6" :loading="isLoading" :elevation="0" :disabled="isLoading">
-            <v-card-text class="FilterArea">
-                <v-btn color="green" dark depressed small class="text-none" @click="onClickPrintBtn()" v-if="reportData.length > 0"><v-icon>mdi-print</v-icon>Print</v-btn>
+            <v-card-text class="disp-flex">
+                <v-btn color="red" dark depressed small class="text-none" to="/report/salary-report"><v-icon>mdi-arrow-left</v-icon>Back</v-btn>
+                <v-btn color="green" dark depressed small class="text-none" @click="onClickPrintBtn()" v-if="reportData.length > 0"><v-icon>mdi-printer</v-icon>Print</v-btn>
             </v-card-text>
         </v-card>
         <div v-if="reportData.length > 0" id="printArea" style="width: 100%">
@@ -41,6 +42,7 @@ import { AxiosError } from 'axios';
 import { Component, Vue } from 'vue-property-decorator'
 import ReportAPI from '~/services/Report';
 import { formatRupiah } from '~/helper/utilities/NumberFormatter'
+import SystemStateHelper from '~/helper/store/SystemState';
 
 @Component({
     layout: "admin",
@@ -75,6 +77,10 @@ export default class SalaryReportPage extends Vue {
     async mounted() : Promise<void> {
         await this.fetchReportApi(this.$route.params.pathMatch)
         if(this.reportData.length < 1) this.$router.push("/report/salary-report")
+    }
+
+    created () {
+        this.$store.commit(SystemStateHelper.mutation.updateTitle, "Laporan Gaji Karyawan")
     }
 
     onClickPrintBtn () {
